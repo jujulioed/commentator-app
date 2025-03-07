@@ -1,0 +1,21 @@
+db:
+table users:
+id
+name
+nickname
+birthday
+email
+password
+gender
+photo (empty)
+activated (initiazes with 'True')
+
+table posts:
+id
+owner-id
+text (max 255 char)
+tag-ids
+likes
+dislikes
+reference-post (can be null)
+awnser-post (can be null)
