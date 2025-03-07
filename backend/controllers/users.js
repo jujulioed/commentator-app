@@ -40,7 +40,14 @@ gender
 function postUser(res, res) {
     try{
         const newUser = req.body;
-        if(req.body.name && req.body.nickname && req.body.birthday && req.body.email && req.body.password && req.body.gender) {
+        const name = req.body.name;
+        const nickname = req.body.nickname;
+        const birthday = req.body.birthday;
+        const email = req.body.email;
+        const password = req.body.password;
+        const gender = req.body.gender;
+        
+        if(name && nickname && birthday && email && password && gender) {
             createNewUser(newUser);
             res.status(201);
             res.send("User successfully created!")

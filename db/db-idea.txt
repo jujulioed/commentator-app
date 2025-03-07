@@ -9,6 +9,7 @@ password
 gender
 photo (empty)
 activated (initiazes with 'True')
+creation date
 
 table posts:
 id
@@ -19,3 +20,10 @@ likes
 dislikes
 reference-post (can be null)
 awnser-post (can be null)
+edited
+date
+update-date
+
+table tags:
+id
+tag-name
