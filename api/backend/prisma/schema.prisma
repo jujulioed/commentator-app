@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model posts {
+  id             Int      @id @default(autoincrement()) @db.UnsignedInt
+  owner_id       Int      @map("owner-id") @db.UnsignedInt
+  text           String   @db.TinyText
+  likes          Int?     @default(0)
+  dislikes       Int?     @default(0)
+  reference_post Int?     @map("reference-post")
+  awnser_post    Int?     @map("awnser-post")
+  createdAt      DateTime @default(now()) @db.Timestamp(0)
+  updatedAt      DateTime @default(now()) @db.Timestamp(0)
+  users          users    @relation(fields: [owner_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "posts_ibfk_1")
+
+  @@index([owner_id], map: "owner-id")
+}
+
+model users {
+  id        Int       @id @default(autoincrement()) @db.UnsignedInt
+  name      String    @db.VarChar(63)
+  nickname  String    @db.VarChar(63)
+  birthday  DateTime? @db.Timestamp(0)
+  email     String    @db.VarChar(127)
+  password  String    @db.VarChar(127)
+  gender    String    @db.Char(1)
+  activated Boolean
+  createdAt DateTime  @default(now()) @db.Timestamp(0)
+  updatedAt DateTime  @default(now()) @db.Timestamp(0)
+  posts     posts[]
+}
