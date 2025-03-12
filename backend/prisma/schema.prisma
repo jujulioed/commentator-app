@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model posts {
+model Post {
   id             Int      @id @default(autoincrement()) @db.UnsignedInt
   owner_id       Int      @map("owner-id") @db.UnsignedInt
   text           String   @db.TinyText
@@ -17,12 +17,13 @@ model posts {
   awnser_post    Int?     @map("awnser-post")
   createdAt      DateTime @default(now()) @db.Timestamp(0)
   updatedAt      DateTime @default(now()) @db.Timestamp(0)
-  users          users    @relation(fields: [owner_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "posts_ibfk_1")
+  users          User    @relation(fields: [owner_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "posts_ibfk_1")
 
   @@index([owner_id], map: "owner-id")
+  @@map("posts")
 }
 
-model users {
+model User {
   id        Int       @id @default(autoincrement()) @db.UnsignedInt
   name      String    @db.VarChar(63)
   nickname  String    @db.VarChar(63)
@@ -33,5 +34,8 @@ model users {
   activated Boolean
   createdAt DateTime  @default(now()) @db.Timestamp(0)
   updatedAt DateTime  @default(now()) @db.Timestamp(0)
-  posts     posts[]
+  Post     Post[]
+
+  
+  @@map("users")
 }
