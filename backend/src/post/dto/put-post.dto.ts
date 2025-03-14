@@ -1,3 +1,3 @@
 import { CreatePostDTO } from "./create-post.dto";
 
-export class PutUserDTO extends CreatePostDTO {}
+export class PutPostDTO extends CreatePostDTO {}

@@ -1,6 +1,8 @@
-import { Body, Controller, Delete, Get, Patch, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Put } from "@nestjs/common";
 import { CreatePostDTO } from "./dto/create-post.dto";
 import { PostService } from "./post.service";
+import { PutPostDTO } from "./dto/put-post.dto";
+import { PatchPostDTO } from "./dto/patch-post.dto";
 
 @Controller('posts')
 export class PostController {
@@ -13,17 +15,27 @@ export class PostController {
     }
 
     @Get()
-    async list(){}
+    async list(){
+        return this.postService.list();
+    }
 
     @Get(':id')
-    async show(){}
+    async show(@Param('id', ParseIntPipe) id: number){
+        return this.postService.show(id);
+    }
 
     @Put(':id')
-    async update(){}
+    async update(@Param('id', ParseIntPipe) id: number, data: PutPostDTO){
+        return this.postService.update(id, data);
+    }
 
     @Patch(':id')
-    async updatePartial(){}
+    async updatePartial(@Param('id', ParseIntPipe) id: number, data: PatchPostDTO){
+        return this.postService.updatePartial(id, data);
+    }
 
     @Delete(':id')
-    async delete(){}
+    async delete(@Param('id', ParseIntPipe) id: number){
+        return this.postService.delete(id);
+    }
 }
