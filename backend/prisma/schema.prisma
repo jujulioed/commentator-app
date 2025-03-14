@@ -17,25 +17,24 @@ model Post {
   awnser_post    Int?     @map("awnser-post")
   createdAt      DateTime @default(now()) @db.Timestamp(0)
   updatedAt      DateTime @default(now()) @db.Timestamp(0)
-  users          User    @relation(fields: [owner_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "posts_ibfk_1")
+  users          User     @relation(fields: [owner_id], references: [id], onUpdate: Restrict, map: "posts_ibfk_1")
 
   @@index([owner_id], map: "owner-id")
   @@map("posts")
 }
 
 model User {
-  id        Int       @id @default(autoincrement()) @db.UnsignedInt
-  name      String    @db.VarChar(63)
-  nickname  String    @db.VarChar(63)
-  birthday  DateTime? @db.Timestamp(0)
-  email     String    @db.VarChar(127)
-  password  String    @db.VarChar(127)
-  gender    String    @db.Char(1)
+  id        Int      @id @default(autoincrement()) @db.UnsignedInt
+  name      String   @db.VarChar(63)
+  nickname  String   @db.VarChar(63)
+  birthday  DateTime @default(now()) @db.Timestamp(0)
+  email     String   @db.VarChar(127)
+  password  String   @db.VarChar(127)
+  gender    String   @db.Char(1)
   activated Boolean
-  createdAt DateTime  @default(now()) @db.Timestamp(0)
-  updatedAt DateTime  @default(now()) @db.Timestamp(0)
-  Post     Post[]
+  createdAt DateTime @default(now()) @db.Timestamp(0)
+  updatedAt DateTime @default(now()) @db.Timestamp(0)
+  Post      Post[]
 
-  
   @@map("users")
 }

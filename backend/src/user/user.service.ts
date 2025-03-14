@@ -12,7 +12,9 @@ export class UserService {
 
     async create({name, nickname, birthday, email, password, gender}: CreateUserDTO) {
         
-        birthday = new Date(birthday);
+        if(birthday) {
+            birthday = new Date(birthday);
+        }
 
         return await this.prisma.user.create({
             data: {
@@ -40,6 +42,13 @@ export class UserService {
     }
 
     async update(id: number, data: UpdateUserDTO)  {
+
+        data.name = data.name ? data.name : "";
+        data.nickname = data.nickname ? data.nickname : "";
+        data.birthday = data.birthday ? new Date(data.birthday) : new Date(0);
+        data.gender = data.gender ? data.gender : "";
+        data.password = data.password ? data.password : "";
+
 
         if(data.birthday) {
             data.birthday = new Date(data.birthday);
